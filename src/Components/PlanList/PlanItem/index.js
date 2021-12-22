@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card, CardActions, CardContent, CardHeader, IconButton, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { PlannerContext } from "../../../Context/mainContext";
 
 export default function PlanItem () {
+    const { setActiveModal, toggleModal } = useContext(PlannerContext);
+
+    const handleClickEdit = () => {
+        toggleModal(true);
+        setActiveModal('Edit');
+    }
+
+    const handleClickDel = () => {
+        toggleModal(true);
+        setActiveModal('Delete');
+    }
+
     return (
         <div style={{ margin: 8 }}>
             <Card>
@@ -17,10 +30,10 @@ export default function PlanItem () {
                         if you like.
                     </Typography>
                     <CardActions disableSpacing>
-                        <IconButton aria-label="edit plan">
+                        <IconButton onClick={handleClickEdit} aria-label="edit plan">
                             <EditIcon />
                         </IconButton>
-                        <IconButton aria-label="delete plan">
+                        <IconButton onClick={handleClickDel} aria-label="delete plan">
                             <DeleteIcon />
                         </IconButton>
                     </CardActions>
