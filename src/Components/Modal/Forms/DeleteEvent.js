@@ -4,6 +4,11 @@ import { PlannerContext } from "../../../Context/mainContext";
 
 export default function DeleteEvent () {
     const { toggleModal } = useContext(PlannerContext);
+
+    const handleDelete = () => {
+        toggleModal(false);
+    }
+
     return (
         <div>
             <div>
@@ -13,7 +18,7 @@ export default function DeleteEvent () {
                 <Button onClick={() => toggleModal(false)} variant="contained" color="secondary">
                     Cancel
                 </Button>
-                <Button onClick={() => toggleModal(false)} variant="contained" color="warning">
+                <Button onClick={handleDelete} variant="contained" color="warning">
                     Delete
                 </Button>
             </div>

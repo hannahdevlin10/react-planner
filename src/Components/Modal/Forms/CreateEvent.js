@@ -1,17 +1,57 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { useDispatch, useSelector } from "react-redux";
+import { eventAdded } from "../../../Redux/events/eventsSlice";
+
 import { Button, FormControl, FormLabel, TextField } from '@mui/material';
 import { PlannerContext } from '../../../Context/mainContext';
-import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
+
+import DatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 export default function CreateEvent () {
-    const { toggleModal, setEvents } = useContext(PlannerContext);
-    const [value, setValue] = useState(new Date('2014-08-18T21:11:54'));
+    const dispatch = useDispatch();
+    const { toggleModal } = useContext(PlannerContext);
+    const [title, setTitle] = useState("");
+    const [desc, setDesc] = useState("");
+    const [date, setDate] = useState(null);
+    const [error, setError] = useState(null);
 
-    const handleChange = (newValue) => {
-      setValue(newValue);
+    const handleChangeTitle = (e) => setTitle(e.target.value);
+    const handleChangeDesc = (e) => setDesc(e.target.value);
+
+    const handleChangeDate = (newValue) => {
+      let x = Date.parse(newValue);
+      setDate(x);
     };
+
+    const eventsAmount = useSelector((state) => state.events.length);
+
+    const handleSubmit = () => {
+      if (title && desc && date) {
+        dispatch(
+          eventAdded({
+            id: eventsAmount + 1,
+            title,
+            desc,
+            date
+          })
+        );
+        setError(null);
+      } else {
+        setError("Please fill in all fields")
+      }
+
+      toggleModal(false);
+      setTitle("");
+      setDesc("");
+    }
+
+    const handleCancel = () => {
+      toggleModal(false);
+      setTitle("");
+      setDesc("");
+    }
 
     return (
         <div>
@@ -19,64 +59,56 @@ export default function CreateEvent () {
                 <FormControl>
                     <span style={{ margin: '10px 0px', display: 'flex', flexDirection: 'column' }}>
                       <FormLabel color="secondary">
-                        Event Title
+                        Event Title *
                       </FormLabel>
                       <TextField
                         style={{ width: '600px' }}
-                        id="outlined-basic"
+                        id="eventTitle"
                         variant="outlined"
+                        onChange={handleChangeTitle}
+                        value={title}
                         />
                     </span>
                    
                    <span style={{ margin: '10px 0px', display: 'flex', flexDirection: 'column'  }}>
                       <FormLabel color="secondary">
-                        Event Description
+                        Event Description *
                       </FormLabel>
                       <TextField
                         style={{ width: '600px' }}
-                        id="outlined-basic"
-                        required
+                        id="eventDesc"
                         multiline
+                        value={desc}
+                        onChange={handleChangeDesc}
                         variant="outlined" />
                    </span>
 
                    <span style={{ margin: '10px 0px', display: 'flex', flexDirection: 'column'  }}>
                       <FormLabel color="secondary">
-                        Start Date
+                        Date
                       </FormLabel>
                       <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DesktopDatePicker
-                          inputFormat="MM/dd/yyyy"
-                          value={value}
-                          onChange={handleChange}
+                        <DatePicker
+                          id="eventDate"
+                          inputFormat="dd/MM/yyyy"
+                          value={date}
+                          disableOpenPicker
+                          onChange={handleChangeDate}
                           renderInput={(params) => <TextField style={{ width: '600px' }} {...params} />}
                         />
                       </LocalizationProvider>
                    </span>
-
-                   <span style={{ margin: '10px 0px', display: 'flex', flexDirection: 'column'  }}>
-                      <FormLabel color="secondary">
-                        End Date
-                      </FormLabel>
-                      <LocalizationProvider dateAdapter={AdapterDateFns}>
-                        <DesktopDatePicker
-                          inputFormat="MM/dd/yyyy"
-                          value={value}
-                          onChange={handleChange}
-                          renderInput={(params) => <TextField style={{ width: '600px' }} {...params} />}
-                        />
-                      </LocalizationProvider>
-                   </span>
-                    
                 </FormControl>
-                
-                
+
+            </div>
+            <div>
+              {error && error}
             </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', paddingRight: 3 }}>
-                <Button onClick={() => toggleModal(false)} variant="contained" color="secondary">
+                <Button onClick={handleCancel} variant="contained" color="secondary">
                     Cancel
                 </Button>
-                <Button onClick={() => toggleModal(false)} variant="contained" color="warning">
+                <Button onClick={handleSubmit} disabled={!title || !desc || !date} variant="contained" color="warning">
                     Submit
                 </Button>
             </div>

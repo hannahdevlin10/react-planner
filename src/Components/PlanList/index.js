@@ -1,11 +1,13 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
+import { useSelector } from "react-redux";
 import { IconButton, Tooltip } from "@mui/material";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { PlannerContext } from '../../Context/mainContext';
-// import PlanItem from "./PlanItem";
+import PlanItem from "./PlanItem";
 
 function PlanList () {
     const { toggleModal, setActiveModal, activeModal } = useContext(PlannerContext);
+    const events = useSelector((state) => state.events);
     
     const handleClick = () => {
         setActiveModal('Create');
@@ -27,7 +29,22 @@ function PlanList () {
                 </span>
             </div>
             <div style={{ height: '83vh', overflowX: 'scroll' }}>
-               {/* <PlanItem /> */}
+               {
+                   events ? (
+                    events?.map(({ id, title, desc, date }, ev) => (
+                        <PlanItem
+                            key={ev}
+                            id={id}
+                            title={title}
+                            description={desc}
+                            date={date} />
+                       ))
+                   ) : (
+                       <div style={{ marginTop: '35vh', fontSize: 28 }}>
+                           No events
+                       </div>
+                   )
+               }
             </div>
         </div>
     )

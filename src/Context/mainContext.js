@@ -7,6 +7,7 @@ export const PlannerProvider = ({ children }) => {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
     const [activeModal, setActiveModal] = useState(null);
+    const [activeEventID, setActiveEventID] = useState(null);
 
     const toggleModal = (open = !modalOpen) => setModalOpen(open);
 
@@ -20,7 +21,9 @@ export const PlannerProvider = ({ children }) => {
                 selectedDate,
                 setSelectedDate,
                 activeModal,
-                setActiveModal
+                setActiveModal,
+                activeEventID,
+                setActiveEventID
             }}>
             {children}
         </PlannerContext.Provider>

@@ -1,39 +1,42 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Card, CardActions, CardContent, CardHeader, IconButton, Typography } from "@mui/material";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { PlannerContext } from "../../../Context/mainContext";
 
-export default function PlanItem () {
-    const { setActiveModal, toggleModal } = useContext(PlannerContext);
+import { useDispatch } from "react-redux";
+import { eventDeleted } from "../../../Redux/events/eventsSlice";
 
-    const handleClickEdit = () => {
+export default function PlanItem ({ id, title, description, date }) {
+    const dispatch = useDispatch();
+    const { setActiveModal, toggleModal, setActiveEventID } = useContext(PlannerContext);
+
+    const handleClickEdit = (id) => {
+        setActiveEventID(id);
         toggleModal(true);
         setActiveModal('Edit');
     }
 
-    const handleClickDel = () => {
-        toggleModal(true);
-        setActiveModal('Delete');
+    const convertDate = (timestamp) => {
+        const date = new Date(timestamp * 1).toDateString();
+        return String(date);
     }
 
     return (
         <div style={{ margin: 8 }}>
             <Card>
                 <CardHeader
-                    title="Shrimp and Chorizo Paella"
-                    subheader="September 14, 2016" />
+                    title={title}
+                    subheader={convertDate(date)} />
                 <CardContent>
                     <Typography variant="body2" color="text.secondary">
-                        This impressive paella is a perfect party dish and a fun meal to cook
-                        together with your guests. Add 1 cup of frozen peas along with the mussels,
-                        if you like.
+                       {description}
                     </Typography>
                     <CardActions disableSpacing>
-                        <IconButton onClick={handleClickEdit} aria-label="edit plan">
+                        <IconButton onClick={() => handleClickEdit(id)} aria-label="edit plan">
                             <EditIcon />
                         </IconButton>
-                        <IconButton onClick={handleClickDel} aria-label="delete plan">
+                        <IconButton onClick={() => dispatch(eventDeleted({ id }))} aria-label="delete plan">
                             <DeleteIcon />
                         </IconButton>
                     </CardActions>

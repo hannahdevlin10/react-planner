@@ -61,9 +61,7 @@ export default function CustomModal () {
                         </IconButton>
                      </div>
                        {
-                           activeModal === 'Delete' ? (
-                               <DeleteEvent />
-                           ) : activeModal === 'Edit' ? (
+                           activeModal === 'Edit' ? (
                                <EditEvent />
                            ) : activeModal === 'Create' ? (
                                <CreateEvent />

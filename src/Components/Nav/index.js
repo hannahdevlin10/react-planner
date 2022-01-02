@@ -1,6 +1,5 @@
 import React from 'react';
-import MenuIcon from '@mui/icons-material/Menu';
-import { IconButton } from '@mui/material';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 
 export default function Nav () {
     return (
@@ -11,9 +10,7 @@ export default function Nav () {
             display: 'flex'
             }}>
             <div style={{ margin: 'auto 20px auto 20px' }}>
-                <IconButton>
-                    <MenuIcon style={{ fontSize: 36 }} />
-                </IconButton>
+              <ScheduleIcon style={{ fontSize: 36 }} />
             </div>
             <div style={{
                 fontSize: 32,
