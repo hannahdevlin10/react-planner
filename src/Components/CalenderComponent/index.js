@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import 'react-calendar/dist/Calendar.css';
 import Calendar from 'react-calendar';
 import './style.css';
@@ -10,15 +10,10 @@ export default function CalendarComponent () {
 
     const handleClick = (newDate) => {
       onChange();
-      console.log(newDate);
       setSelectedDate(Date.parse(newDate));
       setActiveModal('Create');
       toggleModal(true);
     }
-
-    // useEffect(() => {
-    //   document.getElementsByClassName('react-calendar__tile')[].style.background = 'red';
-    // }, []);
 
     return (
         <div>

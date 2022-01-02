@@ -6,7 +6,7 @@ import { PlannerContext } from '../../Context/mainContext';
 import PlanItem from "./PlanItem";
 
 function PlanList () {
-    const { toggleModal, setActiveModal, activeModal } = useContext(PlannerContext);
+    const { toggleModal, setActiveModal } = useContext(PlannerContext);
     const events = useSelector((state) => state.events);
     
     const handleClick = () => {

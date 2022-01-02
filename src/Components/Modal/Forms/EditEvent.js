@@ -1,10 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { eventUpdated } from "../../../Redux/events/eventsSlice";
 import { Button, FormControl, FormLabel, TextField } from '@mui/material';
 import { PlannerContext } from '../../../Context/mainContext';
-import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
-import AdapterDateFns from '@mui/lab/AdapterDateFns';
+// import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
+// import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 export default function EditEvent () {
     const dispatch = useDispatch();
@@ -16,29 +16,27 @@ export default function EditEvent () {
 
     const [title, setTitle] = useState(event.title);
     const [desc, setDesc] = useState(event.desc);
-    const [date, setDate] = useState(event.date);
     const [error, setError] = useState(null);
 
     const handleChangeTitle = (e) => setTitle(e.target.value);
     const handleChangeDesc = (e) => setDesc(e.target.value);
 
-    const handleChangeDate = (newValue) => {
-      console.log('onchange: ', newValue)
-      setDate(newValue);
-    };
+    // const handleChangeDate = (newValue) => {
+    //   console.log('onchange: ', newValue)
+    //   setDate(newValue);
+    // };
 
-    useEffect(() => {
-      console.log('date: ', new Date(date).toLocaleString())
-    }, [date])
+    // useEffect(() => {
+    //   console.log('date: ', new Date(date).toLocaleString())
+    // }, [date])
 
     const handleSubmit = () => {
-      if (title && desc && date) {
+      if (title && desc) {
         dispatch(
             eventUpdated({
             id: activeEventID,
             title,
-            desc,
-            date
+            desc
           })
         );
         setError(null);

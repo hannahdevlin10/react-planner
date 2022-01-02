@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { eventAdded } from "../../../Redux/events/eventsSlice";
 
@@ -11,17 +11,11 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 
 export default function CreateEvent () {
     const dispatch = useDispatch();
-    const { toggleModal, selectedDate, setSelectedDate, activeModal } = useContext(PlannerContext);
+    const { toggleModal, setSelectedDate } = useContext(PlannerContext);
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
     const [date, setDate] = useState(null);
     const [error, setError] = useState(null);
-
-    // useEffect(() => {
-    //   if (selectedDate && activeModal === 'Create') {
-    //     setDate(selectedDate);
-    //   } 
-    // }, []);
 
     const handleChangeTitle = (e) => setTitle(e.target.value);
     const handleChangeDesc = (e) => setDesc(e.target.value);

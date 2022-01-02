@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Box, IconButton, Modal, Typography } from '@mui/material';
 import { PlannerContext } from '../../Context/mainContext';
 import CloseIcon from '@mui/icons-material/Close';
-import DeleteEvent from './Forms/DeleteEvent';
 import EditEvent from './Forms/EditEvent';
 import CreateEvent from './Forms/CreateEvent';
 import './style.css';
