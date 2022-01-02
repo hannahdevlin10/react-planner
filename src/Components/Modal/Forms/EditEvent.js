@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { eventUpdated } from "../../../Redux/events/eventsSlice";
 import { Button, FormControl, FormLabel, TextField } from '@mui/material';
@@ -11,7 +11,7 @@ export default function EditEvent () {
     const { toggleModal, activeEventID } = useContext(PlannerContext);
     
     const event = useSelector((state) => 
-        state.events.find((event) => event.id === activeEventID)
+      state.events.find((event) => event.id === activeEventID)
     );
 
     const [title, setTitle] = useState(event.title);
@@ -23,8 +23,13 @@ export default function EditEvent () {
     const handleChangeDesc = (e) => setDesc(e.target.value);
 
     const handleChangeDate = (newValue) => {
+      console.log('onchange: ', newValue)
       setDate(newValue);
     };
+
+    useEffect(() => {
+      console.log('date: ', new Date(date).toLocaleString())
+    }, [date])
 
     const handleSubmit = () => {
       if (title && desc && date) {
@@ -82,20 +87,22 @@ export default function EditEvent () {
                         variant="outlined" />
                    </span>
 
-                   <span style={{ margin: '10px 0px', display: 'flex', flexDirection: 'column'  }}>
+                   {/* <span style={{ margin: '10px 0px', display: 'flex', flexDirection: 'column'  }}>
                       <FormLabel color="secondary">
                         Date *
                       </FormLabel>
                       <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <DesktopDatePicker
                           id="eventDate"
-                          inputFormat="MM/dd/yyyy"
+                          inputFormat="dd/mm/yyyy"
                           value={date}
+                          disableOpenPicker
                           onChange={handleChangeDate}
                           renderInput={(params) => <TextField style={{ width: '600px' }} {...params} />}
                         />
                       </LocalizationProvider>
-                   </span>
+                   </span> */}
+                   
                 </FormControl>
 
             </div>

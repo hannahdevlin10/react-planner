@@ -3,13 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = [
     {
         id: '1',
-        title: `Dave's Birthday`,
+        title: `Dave's Birthday 🎂`,
         desc: `This is Dave's birthday - remember to buy present!`,
         date: `1645493000000`
     },
     {
         id: '2',
-        title: `Trip to Paris`,
+        title: `Trip to Paris 🇫🇷`,
         desc: `Going on a trip to Paris with Dave`,
         date: `1655493000000`
     }

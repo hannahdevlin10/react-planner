@@ -4,8 +4,8 @@ import ScheduleIcon from '@mui/icons-material/Schedule';
 export default function Nav () {
     return (
         <div style={{
-            width: '100%',
-            height: '8vh',
+            width: '105%',
+            height: '65px',
             borderBottom: '1px solid grey',
             display: 'flex'
             }}>

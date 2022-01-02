@@ -28,9 +28,8 @@ function PlanList () {
                     </Tooltip>
                 </span>
             </div>
-            <div style={{ height: '83vh', overflowX: 'scroll' }}>
-               {
-                   events ? (
+            <div style={{ height: '86vh', overflowX: 'scroll' }}>
+               {events ? (
                     events?.map(({ id, title, desc, date }, ev) => (
                         <PlanItem
                             key={ev}
@@ -43,8 +42,7 @@ function PlanList () {
                        <div style={{ marginTop: '35vh', fontSize: 28 }}>
                            No events
                        </div>
-                   )
-               }
+                   )}
             </div>
         </div>
     )

@@ -8,12 +8,18 @@ import CreateEvent from './Forms/CreateEvent';
 import './style.css';
 
 export default function CustomModal () {
-    const { modalOpen, toggleModal, activeModal, setActiveModal } = useContext(PlannerContext);
+    const { modalOpen, toggleModal, activeModal, setActiveModal, selectedDate, setSelectedDate } = useContext(PlannerContext);
     const [modalHeader, setModalHeader] = useState(null);
 
     function handleClose() {
         toggleModal(false); 
         setActiveModal(null);
+        setSelectedDate(null);
+    }
+
+    const convertDate = (timestamp) => {
+        const date = new Date(timestamp * 1).toDateString();
+        return String(date);
     }
 
     useEffect(() => {
@@ -54,7 +60,11 @@ export default function CustomModal () {
                  <Box sx={style} style={{ width: activeModal === 'Create' || activeModal === 'Edit' ? 605 : 400 }}>
                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <Typography id="modal-modal-title" variant="h6" component="h2">
-                          {modalHeader}
+                          {modalHeader && selectedDate ? (
+                              modalHeader + ' for ' + convertDate(selectedDate)
+                          ) : (
+                            modalHeader
+                          )} 
                         </Typography>
                         <IconButton style={{ padding: 0, marginTop: -2 }} onClick={handleClose}>
                             <CloseIcon />
